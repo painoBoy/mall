@@ -19,7 +19,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 #tab-bar {
   background-color: #f6f6f6;
   display: flex;

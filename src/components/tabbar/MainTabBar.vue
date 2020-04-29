@@ -42,7 +42,7 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .tab-bar-item {
   flex: 1;
   font-size: 14px;

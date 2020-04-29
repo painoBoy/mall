@@ -38,8 +38,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
-ul {
+<style lang="scss" scoped>
+.recommend{
+  ul {
   padding: 0 0 10px 0;
   border-bottom:10px solid #efefef;
   margin-top: 10px;
@@ -58,6 +59,7 @@ ul {
       width: 70px;
     }
   }
+}
 }
 .item-name {
     padding: 5px 0;

@@ -36,6 +36,11 @@ export default {
   background-color:#ff5777;
   border-bottom: 1px;
   box-shadow: 0px 1px 1px rgba(100,100,100,.4);
+  position: fixed;
+  z-index: 9;
+  top:0;
+  left:0;
+  right: 0;
   color:#fff;
   .left,
   .right {
