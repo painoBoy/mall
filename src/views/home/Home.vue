@@ -11,7 +11,8 @@
     <nav-bar>
       <div class="head" slot="center">购物街</div>
     </nav-bar>
-    <swiper class="swiper" :options="swiperOption">
+    <scroll class="scroll-content">
+      <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="(item, index) in swiperList" :key="index">
         <img
           width="375"
@@ -34,12 +35,13 @@
       :tabs="['流行', '新款', '精选']"
     ></tab-control>
     <product-list :productData="showProduct"></product-list>
+    </scroll>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import Scroll from '../../components/scroll/Scroll'
 import NavBar from "../../components/navbar/NavBar";
 import Recommend from "./children/Recommend";
 import TabControl from "../../components/tabcontrol/TabControl";
@@ -59,6 +61,7 @@ export default {
     Recommend,
     TabControl,
     ProductList,
+    Scroll
   },
   data() {
     return {
@@ -140,6 +143,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.scroll-content{
+  height: calc( 100vh - 93px );
+
+}
 .swiper {
   margin-top: 44px;
   width: 100%;

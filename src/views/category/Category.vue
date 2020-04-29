@@ -11,6 +11,7 @@
   <div id="category">
     <div class="wrapper" ref="aaa">
       <ul class="content">
+        <button @click="click">提示</button>
         <li>这是展示数据1</li>
         <li>这是展示数据2</li>
         <li>这是展示数据3</li>
@@ -128,11 +129,25 @@ export default {
       scroll: null,
     };
   },
+  methods: {
+     click() {
+       console.log(3);
+     }
+  },
   mounted() {
     console.log(document.querySelector(".wrapper"));
     this.scroll = new BScroll(this.$refs.aaa,{
-      pullUpLoad: true
+      pullUpLoad: true,
+      probeType : 3,
     });
+
+    this.scroll.on("scroll",(position)=>{
+      console.log(position);
+    })
+
+    this.scroll.on('pullingUp',()=>{
+      console.log("上拉加载更多");
+    })
   },
 };
 </script>
