@@ -11,7 +11,13 @@
     <nav-bar>
       <div class="head" slot="center">购物街</div>
     </nav-bar>
-    <scroll class="scroll-content">
+    <scroll class="scroll-content"
+    @scroll="scroll"
+    ref="scroll"
+    :probeType="3" 
+    @pullingUp="loadMore"
+    :pullUpLoad="true"
+    >
       <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="(item, index) in swiperList" :key="index">
         <img
@@ -36,6 +42,9 @@
     ></tab-control>
     <product-list :productData="showProduct"></product-list>
     </scroll>
+    <back-top class="back-top" @click.native="clickBackTop" v-show="isShowBackTop">
+      <img src="../../assets/images/common/top.png" alt="">
+    </back-top>
   </div>
 </template>
 
@@ -46,6 +55,7 @@ import NavBar from "../../components/navbar/NavBar";
 import Recommend from "./children/Recommend";
 import TabControl from "../../components/tabcontrol/TabControl";
 import ProductList from "./children/ProductList";
+import BackTop from '@/components/backTop/BackTop'
 import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 
 import "swiper/css/swiper.css";
@@ -61,10 +71,12 @@ export default {
     Recommend,
     TabControl,
     ProductList,
-    Scroll
+    Scroll,
+    BackTop
   },
   data() {
     return {
+      isShowBackTop:false,
       defaultType: "pop", //默认显示pop
       goods: {
         pop: {
@@ -102,7 +114,23 @@ export default {
     this._getGoodsData("new");
     this._getGoodsData("sell");
   },
+  mounted() {
+    console.log(this.$refs);
+  },
   methods: {
+    //上拉加载更多
+    loadMore() {
+      console.log("加载更多");
+      this._getGoodsData(this.defaultType)
+    },
+    scroll(pos) {
+      this.isShowBackTop = (-pos.y) >1000
+    },
+    //点击返回顶部按钮
+    clickBackTop() {
+      console.log(this)
+      this.$refs.scroll.scrollTo(0 , 0 ,500)
+    },
     //监听tabs切换
     changeTabs(index) {
       switch (index) {
@@ -132,6 +160,7 @@ export default {
         this.goods[type].list.push(...res.data.list);
         console.log(res);
         this.goods[type].page += 1;
+        this.$refs.scroll.finishPullUp();
       });
     },
     bannerClick(index) {
@@ -172,5 +201,13 @@ export default {
   position: sticky;
   top: 44px;
   background: #fff;
+}
+.home{
+  position: relative;
+  .back-top{
+  position: fixed;
+  right: 10px;
+  bottom: 60px;
+}
 }
 </style>
